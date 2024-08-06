@@ -1,34 +1,118 @@
-
-document.addEventListener("DOMContentLoaded", () =>{
-
-  const userimg = document.getElementById("user-img");
-  const username = document.getElementById("user-name");
-  const useremail = document.getElementById("user-email");
-  const userbirthday = document.getElementById("user-birthday");
-  const useraddress = document.getElementById("user-address");
-  const userphone = document.getElementById("user-phone");
-  const userpassword = document.getElementById("user-password");
-  
+var randomname, randomlocation,randomemail,randomdob,randompassword,randomphone;
+var img=document.getElementById("image");
+var nameElement=document.getElementById("random-name");
+var descElement=document.getElementById("ran-name");
+var iconElement=document.querySelectorAll(".fa-regular");
+var iconpartElement=document.querySelectorAll(".fa-solid");
 
 
-  function fetchUserData() {
-      fetch('https://randomuser.me/api/')
-          .then(response => response.json())
-          .then(data => {
-              const user = data.results[0];
-              userimg.src  = user.picture.large;
-              username.textContent= `${ user.name.first}, ${user.name.last}`;
-              useremail.textContent = user.email;
-              userlocation.textContent = `${user.location.city}, ${user.location.country}`;
-              useremail.textContent = `email: ${user.email}`;
-              userbirthday.textContent = `birthday: ${new Date(user.dob.date).toLocaleDateString()}`;
-              useraddress.textContent = `address: ${user.location.street.number} ${user.location.street.name}, ${user.location.country}`;
-              userphone.textContent = `phone: ${user.phone}`;
-              userpassword.textContent= `password: ${user.login.password}`;
-          })
-          .catch(error => console.error('Error fetching user data:', error));
-  }
+document.addEventListener("DOMContentLoaded",generateUser);
+function generateUser() {
+    fetch("https://randomuser.me/api/")
+        .then((response) => response.json())
+        .then((data) => {
+            const user = data.results[0];
+            img.src = user.picture.large;
+            randomname=`${user.name.first} ${user.name.last}`;
+            randomemail=`${user.email}`;
+            randomdob=`${user.dob.date}`;
+            randomlocation=`${user.location.street.number} ${user.location.street.name}`;
+            randomphone=`${user.phone}`;
+            randompassword=`${user.login.password}`;
+            nameElement.innerText="Hi, My name is";
+            descElement.innerText=randomname;
+            iconElement[0].style.color="green";
+            
+        })
+        .catch((error) => {
+            console.error("Error fetching user:", error);
+        });
+}
+iconElement[1].addEventListener('mouseover',generateemail)
 
-  fetchUserData();
-   
-});
+function generateemail(){
+            nameElement.innerText="My email address is"
+            descElement.innerText=randomemail;
+            iconElement[0].style.color="grey";
+            iconElement[2].style.color="grey";
+            iconElement[1].style.color="green";
+    iconpartElement[0].style.color="grey";
+    iconpartElement[1].style.color="grey";
+    iconpartElement[2].style.color="grey";
+
+
+}
+
+iconElement[2].addEventListener('mouseover',generatedob)
+
+function generatedob(){
+    nameElement.innerText="My birthday is";
+    descElement.innerText=randomdob;
+    iconElement[0].style.color="grey";
+    iconElement[1].style.color="grey";
+    iconElement[2].style.color="green";
+    iconpartElement[0].style.color="grey";
+    iconpartElement[1].style.color="grey";
+    iconpartElement[2].style.color="grey";
+
+
+}
+
+iconpartElement[0].addEventListener('mouseover',generatelocation)
+
+function generatelocation(){
+    nameElement.innerText="My address is";
+    descElement.innerText=randomlocation;
+    iconpartElement[0].style.color="green";
+    iconElement[0].style.color="grey";
+    iconElement[1].style.color="grey";
+    iconElement[2].style.color="grey";
+
+    iconpartElement[1].style.color="grey";
+    iconpartElement[2].style.color="grey";
+
+
+    
+}
+
+iconpartElement[1].addEventListener('mouseover',generatePhone)
+
+function generatePhone(){
+    nameElement.innerText="My phone number is";
+    descElement.innerText=randomphone;
+    iconpartElement[1].style.color="green";
+    iconpartElement[0].style.color="grey";
+    iconpartElement[2].style.color="grey";
+    iconElement[0].style.color="grey";
+    iconElement[1].style.color="grey";
+    iconElement[2].style.color="grey";
+
+
+}
+
+iconpartElement[2].addEventListener('mouseover',generatePassword)
+
+function generatePassword(){
+    nameElement.innerText="My password is";
+    descElement.innerText=randompassword;
+    iconpartElement[2].style.color="green";
+    iconpartElement[1].style.color="grey";
+    iconElement[0].style.color="grey";
+    iconElement[1].style.color="grey";
+    iconElement[2].style.color="grey";
+
+}
+
+iconElement[0].addEventListener('mouseover',generateName)
+
+function generateName(){
+    nameElement.innerText="Hi, My name is";
+    descElement.innerText=randomname;
+    iconElement[0].style.color="green";
+    iconElement[1].style.color="grey";
+    iconElement[2].style.color="grey";
+    iconpartElement[0].style.color="grey";
+    iconpartElement[1].style.color="grey";
+    iconpartElement[2].style.color="grey";
+
+}
